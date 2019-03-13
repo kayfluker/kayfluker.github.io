@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"> </script>
+<head>
+<script src="/assets/jquery.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Cuprum' rel='stylesheet' type='text/css'>
+<style>
+
+body {
+font-family: 'Cuprum', sans-serif;;
+  margin: 0 auto;
+  max-width: 600px;
+  background: white;
+}
+div {
+  height: 300px;
+  background-size: cover;
+  position: relative;
+  margin: 40px 0 0 0;
+  border-radius: 12px;
+}
+h1 {
+  font-family: 'Cuprum';
+  text-align: center;
+  font-size: 75px;
+  color: #aaaaaa;
+  margin: 60px 0 0 0;
+  color:blue;
+}
+
+}
+p {
+  color: rgba(255,255,255,1);
+  background: white;
+  background: linear-gradient(bottom, rgba(100,200,100,1), rgba(100,200,100,.4));
+  background: -webkit-linear-gradient(bottom, rgba(100,100,200,1), rgba(100,200,100,.4));
+  background: -moz-linear-gradient(bottom, rgba(100,200,0,1), rgba(100,200,100,.4));
+  padding: 10px;
+  line-height: 28px;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+  height:30px;
+  transition:height .5s;
+  -webkit-transition:height .5s;
+  -moz-transition:height .5s;
+  color: pink;
+}
+
+.price {
+  float: right;
+}
+small{
+  opacity:0;
+}
+.show-description p{
+  height:150px;
+}
+.show-description small{
+  opacity:1;
+}
+    ul {
+      padding: 10px;
+      background: rgba(100,155,255,0.5);
+      text-align: center;
+    }
+    li {
+      display: inline;
+      padding: 0px 10px 0px 10px;
+      text-align: center;
+    }
+@media (max-width:500px){
+
+    h1{font-size:50px;
+    margin-top:20px;
+    line-height:40px;
+    }
+    h2{font-size:20px;
+    margin:20px 0 30px 0; 
+    }
+    div{
+      margin:20px 12px 0 12px;
+  }
+  p{font-size:20px;
+  line-height:24px;
+ }
+small{font-size:16px;
+ }
+}
+
+</style>
+
+</head>
+
+   
+<body>
+
+<ul>
+      <li><button onclick=Dinner()>Dinner</button></li>
+      <li><button onclick=Lunch()>Lunch</button></li>
+      <li><button onclick=Dessert()>Dessert</button></li>
+      <li><button onclick=Drinks()>Drinks</button></li>
+    </ul> 
+
+<h1>Kays resturant</h1>
+<div id="Food"></div>
+<script>
+DinnerImages = [
+        'url("https://cdn-image.myrecipes.com/sites/default/files/styles/420x420/public/vegan-spaghetti-bolognese-dcms-large.jpg?itok=LqsT_Uy1")',
+				'url("https://d9hyo6bif16lx.cloudfront.net/live/img/production/detail/menu/lunch-dinner_burgers_all-american-burger.jpg")',
+				'url("https://hips.hearstapps.com/vidthumb/images/delish-cajun-butter-steak-still006-1528495387.jpg")',               'url("https://d9hyo6bif16lx.cloudfront.net/live/img/production/detail/menu/lunch-dinner_starters_kickin-buffalo-chicken-tenders.jpg")',
+]
+
+LunchImages = [
+				'url("https://diethood.com/wp-content/uploads/2018/10/Garlic-Butter-Baked-Salmon-12.jpg")',
+				'url("https://gaia.adage.com/images/bin/image/x-large/TACO-BELL-TACO-screen-grab-Fade.jpg")',
+				'url("https://images.food52.com/5KAz-7SzzeBfVi5F8Io_h9-qvb8=/753x502/1906d72b-4949-4c50-ac1c-ad0829542db4--bacon-lettuce-tomato-avocado-hummus-sandwich-high.jpg")',
+]
+				
+DessertImages = [
+				'url("https://images.britcdn.com/wp-content/uploads/2014/04/crossiant-sundaes.jpg")',
+				'url("https://prettysimplesweet.com/wp-content/uploads/2018/03/Classic-Red-Velvet-Cake.jpg")',
+				'url("https://www.handletheheat.com/wp-content/uploads/2016/08/Ultimate-Cheesecake-Square.jpg")',
+		]
+DrinksImages = [
+                'url("https://cf4.s3.souqcdn.com/item/2018/06/04/22/07/11/04/item_XL_22071104_139001232.jpg")',
+                'url("https://www.nestandglow.com/wp-content/uploads/2017/07/apple-cider-vinegar-lemonade.jpg")',
+                'url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJCDoqf_WJ-ZxhBIcdiH8FL0r3WRGL61T9JeyhgthYfbcrcpRSFQ")',                         'url("https://www.cfacdn.com/img/order/COM/Menu_Refresh/Drinks/Drinks%20Desktop/_0000s_0026_%5BFeed%5D_0006s_0014_Drinks_Dasani-Water.png")',
+                'url("https://www.sciencedaily.com/images/2018/08/180824103018_1_540x360.jpg")',
+                
+            ]		
+	
+	DinnerDivs = [
+'<div class="item" onclick=this.classList.toggle("show-description")><p>Spaghetti and mincemeat <span class="price">$10</span><br /><small>Spaghetti with mincemeat on top</small></p></div>',
+    '<div class="item" onclick=this.classList.toggle("show-description")><p>Hamburger and fries<span class="price">$8</span><br /><small>Hamburger with pickles,lettuce,onions and tomato with fries .</small></p></div>',
+    '<div class="item" onclick=this.classList.toggle("show-description")><p>BBQ butter Steak<span class="price">$9</span><br /><small>BBQ butter steak raw,medium raw and well done.</small></p></div>',
+        '<div class="item" onclick=this.classList.toggle("show-description")><p>Chicken Tenders<span class="price">$7</span><br /><small>Chicken tenders with different sauces of your choices.</small></p></div>',
+	]
+		LunchDivs = [
+'<div class="item" onclick=this.classList.toggle("show-description")><p>Salmon<span class="price">$8</span><br /><small>Salmon with broccoli and lemon </small></p></div>',
+    '<div class="item" onclick=this.classList.toggle("show-description")><p>Tacos<span class="price">$3.50</span><br /><small>Make your own tacos with meat, vegetables and sauces of your liking.</small></p></div>',
+    '<div class="item" onclick=this.classList.toggle("show-description")><p>BLT sandwich<span class="price">$4</span><br /><small>Nice crispy bacon,lettuce and tomato with mayo.</small></p></div>',
+	]
+		DessertDivs = [
+'<div class="item" onclick=this.classList.toggle("show-description")><p>Ice-cream sundae <span class="price">$6</span><br /><small>Pick your own flavors and topping of your liking</small></p></div>',
+    '<div class="item" onclick=this.classList.toggle("show-description")><p>Red Velvet cake<span class="price">$5</span><br /><small>Slice of red Velvet cake.</small></p></div>',
+    '<div class="item" onclick=this.classList.toggle("show-description")><p>Cheesecake<span class="price">$6</span><br /><small>Slice of cheese cake with strawberry glaze on top if liking .(Blessed Meat)</small></p></div>',
+	]
+        DrinksDivs = [
+'<div class="item" onclick=this.classList.toggle("show-description")><sprite<span class="price">$2.50</span><br /><small>bottle or glass</small></p></div>', 
+             '<div class="item" onclick=this.classList.toggle("show-description")><lemonade<span class="price">$2.50</span><br /><small>bottle or glass</small></p></div>',
+            '<div class="item" onclick=this.classList.toggle("show-description")><coke<span class="price">$2.50</span><br /><small>bottle or glass</small></p></div>',
+            '<div class="item" onclick=this.classList.toggle("show-description")><water<span class="price">$1</span><br /><small>bottle or glass</small></p></div>',
+             '<div class="item"><alcohol<span class="price">$5</span><br /><small>only for people 21 and older</small></p></div>',  
+        ]
+	
+
+
+function Dinner() {
+      Meals = document.getElementById("Food")
+      Meals.innerHTML = ''
+	    Meals.innerHTML += DinnerDivs[0]
+    	Meals.innerHTML += DinnerDivs[1]
+    	Meals.innerHTML += DinnerDivs[2]
+        Meals.innerHTML += DinnerDivs[3]
+	//alert("")
+	  items = document.getElementsByClassName("item")
+    items[0].style.background = DinnerImages[0]
+    items[0].style.backgroundSize = '100% 100%'
+    items[1].style.background = DinnerImages[1]
+     items[1].style.backgroundSize = '100% 100%'
+    items[2].style.background = DinnerImages[2]
+     items[2].style.backgroundSize = '100% 100%'
+    items[3].style.background = DinnerImages[3]
+     items[3].style.backgroundSize = '100% 100%'
+} 
+
+function Lunch() {
+      Lun = document.getElementById("Food")
+      Lun.innerHTML = ''
+	    Lun.innerHTML += LunchDivs[0]
+    	Lun.innerHTML += LunchDivs[1]
+    	Lun.innerHTML += LunchDivs[2]
+	//alert("")
+		  items = document.getElementsByClassName("item")
+    items[0].style.background = LunchImages[0]
+    items[0].style.backgroundSize = '100% 100%'
+    items[1].style.background = LunchImages[1]
+     items[1].style.backgroundSize = '100% 100%'
+    items[2].style.background = LunchImages[2]
+     items[2].style.backgroundSize = '100% 100%'
+} 
+
+function Dessert() {
+      Des = document.getElementById("Food")
+      Des.innerHTML = ''
+	    Des.innerHTML += DessertDivs[0]
+    	Des.innerHTML += DessertDivs[1]
+      Des.innerHTML += DessertDivs[2]
+//	alert(" ")
+		  items = document.getElementsByClassName("item")
+    items[0].style.background = DessertImages[0]
+    items[0].style.backgroundSize = '100% 100%'
+    items[1].style.background = DessertImages[1]
+     items[1].style.backgroundSize = '100% 100%'
+    items[2].style.background = DessertImages[2]
+     items[2].style.backgroundSize = '100% 100%'
+} 
+
+function Drinks() {
+      Dri = document.getElementById("Food")
+      Dri.innerHTML = ''
+	    Dri.innerHTML += DrinksDivs[0]
+    	Dri.innerHTML += DrinksDivs[1]
+      Dri.innerHTML += DrinksDivs[2]
+     Dri.innerHTML += DrinksDivs[3]
+    Dri.innerHTML += DrinksDivs[4]
+//	alert(" ")
+           items = document.getElementsByClassName("item")
+    items[0].style.background = DrinksImages[0]
+    items[0].style.backgroundSize = '100% 100%'
+    items[1].style.background = DrinksImages[1]
+     items[1].style.backgroundSize = '100% 100%'
+    items[2].style.background = DrinksImages[2]
+     items[2].style.backgroundSize = '100% 100%'
+    items[3].style.background = DrinksImages[3]
+     items[3].style.backgroundSize = '100% 100%'
+    items[4].style.background = DrinksImages[4]
+     items[4].style.backgroundSize = '100% 100%'
+}
+
+$('div').on('click', function(){
+  $(this).toggleClass('show-description');
+});
+</script>
+</body>
